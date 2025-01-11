@@ -179,6 +179,11 @@ public class CargaDatos extends javax.swing.JFrame {
         btnGuardar.setText("Guardar");
 
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -251,6 +256,17 @@ public class CargaDatos extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        lblNombre.setText("");
+        lblRaza.setText("");
+        lblColor.setText("");
+        txaObservacione.setText("");
+        lblDuenio.setText("");
+        lblCelDuenio.setText("");
+        cbxAlergico.setSelectedIndex(0);
+        cbxAtencion.setSelectedIndex(0);
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
