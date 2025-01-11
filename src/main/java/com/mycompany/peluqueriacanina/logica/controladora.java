@@ -21,7 +21,7 @@ public class Controladora {
         mascota.setObservaciones(observaciones);
         mascota.setUnDuenio(duenio);
         
-        
+        this.controlPersis.guardar(duenio, mascota);
 
     }
 
