@@ -1,7 +1,9 @@
 package com.mycompany.peluqueriacanina.igu;
 
 import com.mycompany.peluqueriacanina.DTOs.DuenioDto;
+import com.mycompany.peluqueriacanina.DTOs.MascotaDto;
 import com.mycompany.peluqueriacanina.ENUMs.DuenioEnum;
+import com.mycompany.peluqueriacanina.ENUMs.MascotaEM;
 import com.mycompany.peluqueriacanina.GenericDto.ResultDto;
 import com.mycompany.peluqueriacanina.logica.Controladora;
 import java.util.HashMap;
@@ -286,23 +288,31 @@ public class CargaDatos extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
 
-        String nombreMascota = lblNombre.getText();
-        String raza = lblRaza.getText();
-        String color = lblColor.getText();
-        String observaciones = txaObservacione.getText();
         String alergico = (String) cbxAlergico.getSelectedItem();
         String atenEsp = (String) cbxAtencion.getSelectedItem();
 
         Map<String, Object> paramsDuenio = new HashMap();
+        Map<String, Object> paramsMascota = new HashMap();
 
         paramsDuenio.put(DuenioEnum.NomDuenio.name(), lblDuenio.getText());
         paramsDuenio.put(DuenioEnum.CelDuenio.name(), lblCelDuenio.getText());
 
+        paramsMascota.put(MascotaEM.NOMBRE.name(), lblNombre.getText());
+        paramsMascota.put(MascotaEM.RAZA.name(), lblRaza.getText());
+        paramsMascota.put(MascotaEM.COLOR.name(), lblColor.getText());
+        paramsMascota.put(MascotaEM.OBSERVACIONES.name(), txaObservacione.getText());
+        paramsMascota.put(MascotaEM.ALERGICO.name(), alergico);
+        paramsMascota.put(MascotaEM.ATENESP.name(), atenEsp);
+
         ResultDto<DuenioDto> resultDto = DuenioDto.createDuenioDto(paramsDuenio);
+        ResultDto<MascotaDto> resultMascotaDto = MascotaDto.createMascotaDto(paramsMascota);
+
+        if (resultDto.getError() != null) this.showErrorPane(resultDto.getError());
+        if (resultMascotaDto.getError() != null) this.showErrorPane(resultMascotaDto.getError());
         
-        if(resultDto.getError() != null){
-            this.showErrorPane(resultDto.getError());
-        }
+
+        DuenioDto duenoDto = resultDto.getValor();
+        MascotaDto mascotaDto = resultMascotaDto.getValor();
 
         // control.guardar();
         JOptionPane optionPane = new JOptionPane("Se guardó correctamente");
