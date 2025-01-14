@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 
 public class CargaDatos extends javax.swing.JFrame {
 
-    Controladora control = new Controladora();
+    // Controladora control = new Controladora();
 
     public CargaDatos() {
         initComponents();
@@ -324,9 +324,9 @@ public class CargaDatos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void showErrorPane(String message) {
-        JOptionPane optionPane = new JOptionPane("Error");
+        JOptionPane optionPane = new JOptionPane(message);
         optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
-        JDialog dialog = optionPane.createDialog(message);
+        JDialog dialog = optionPane.createDialog("Error");
         dialog.setAlwaysOnTop(true);
         dialog.setVisible(true);
         return;
