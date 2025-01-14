@@ -297,9 +297,13 @@ public class CargaDatos extends javax.swing.JFrame {
 
         paramsDuenio.put(DuenioEnum.NomDuenio.name(), lblDuenio.getText());
         paramsDuenio.put(DuenioEnum.CelDuenio.name(), lblCelDuenio.getText());
+
+        ResultDto<DuenioDto> resultDto = DuenioDto.createDuenioDto(paramsDuenio);
         
-        ResultDto<DuenioDto> duenioDto = DuenioDto.createDuenioDto(paramsDuenio);
-        
+        if(resultDto.getError() != null){
+            this.showErrorPane(resultDto.getError());
+        }
+
         // control.guardar();
         JOptionPane optionPane = new JOptionPane("Se guardó correctamente");
         optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
@@ -308,7 +312,15 @@ public class CargaDatos extends javax.swing.JFrame {
         dialog.setVisible(true);
 
     }//GEN-LAST:event_btnGuardarActionPerformed
-    
+
+    private void showErrorPane(String message) {
+        JOptionPane optionPane = new JOptionPane("Error");
+        optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        JDialog dialog = optionPane.createDialog(message);
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
+        return;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
