@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 
 public class CargaDatos extends javax.swing.JFrame {
 
-    // Controladora control = new Controladora();
+    Controladora control = new Controladora();
 
     public CargaDatos() {
         initComponents();
@@ -311,10 +311,10 @@ public class CargaDatos extends javax.swing.JFrame {
         if (resultMascotaDto.getError() != null) this.showErrorPane(resultMascotaDto.getError());
         
 
-        DuenioDto duenoDto = resultDto.getValor();
+        DuenioDto duenioDto = resultDto.getValor();
         MascotaDto mascotaDto = resultMascotaDto.getValor();
 
-        // control.guardar();
+        control.guardar(mascotaDto, duenioDto);
         JOptionPane optionPane = new JOptionPane("Se guardó correctamente");
         optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
         JDialog dialog = optionPane.createDialog("Guardado Exitoso");
