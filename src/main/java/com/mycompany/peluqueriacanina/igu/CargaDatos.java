@@ -1,6 +1,11 @@
 package com.mycompany.peluqueriacanina.igu;
 
+import com.mycompany.peluqueriacanina.DTOs.DuenioDto;
+import com.mycompany.peluqueriacanina.ENUMs.DuenioEnum;
+import com.mycompany.peluqueriacanina.GenericDto.ResultDto;
 import com.mycompany.peluqueriacanina.logica.Controladora;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
@@ -280,27 +285,30 @@ public class CargaDatos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        
+
         String nombreMascota = lblNombre.getText();
         String raza = lblRaza.getText();
         String color = lblColor.getText();
         String observaciones = txaObservacione.getText();
         String alergico = (String) cbxAlergico.getSelectedItem();
         String atenEsp = (String) cbxAtencion.getSelectedItem();
+
+        Map<String, Object> paramsDuenio = new HashMap();
+
+        paramsDuenio.put(DuenioEnum.NomDuenio.name(), lblDuenio.getText());
+        paramsDuenio.put(DuenioEnum.CelDuenio.name(), lblCelDuenio.getText());
         
-        String nomDuenio = lblDuenio.getText();
-        String celDuenio = lblCelDuenio.getText();
+        ResultDto<DuenioDto> duenioDto = DuenioDto.createDuenioDto(paramsDuenio);
         
-        control.guardar(nombreMascota, raza, color, observaciones, alergico, atenEsp, nomDuenio, celDuenio);
-        
+        // control.guardar();
         JOptionPane optionPane = new JOptionPane("Se guardó correctamente");
         optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
         JDialog dialog = optionPane.createDialog("Guardado Exitoso");
         dialog.setAlwaysOnTop(true);
         dialog.setVisible(true);
-        
-    }//GEN-LAST:event_btnGuardarActionPerformed
 
+    }//GEN-LAST:event_btnGuardarActionPerformed
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;

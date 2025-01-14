@@ -1,6 +1,8 @@
 package com.mycompany.peluqueriacanina.DTOs;
 
+import com.mycompany.peluqueriacanina.ENUMs.DuenioEnum;
 import com.mycompany.peluqueriacanina.GenericDto.ResultDto;
+import java.util.Map;
 
 public class DuenioDto {
 
@@ -12,7 +14,10 @@ public class DuenioDto {
         this.celDuenio = celDuenio;
     }
 
-    public static ResultDto<DuenioDto> createDuenioDto(String nomDuenio, String celDuenio) {
+    public static ResultDto<DuenioDto> createDuenioDto(Map<String, Object> params) {
+        
+        String nomDuenio = (String) params.get(DuenioEnum.NomDuenio.name());
+        String celDuenio = (String) params.get(DuenioEnum.CelDuenio.name());
 
         if (nomDuenio.isEmpty() || nomDuenio == null) {
             return new ResultDto<>("El nombre del dueño no puede estar vacío", null);
