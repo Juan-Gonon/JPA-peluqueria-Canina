@@ -170,8 +170,11 @@ public class VerDatos extends javax.swing.JFrame {
                 int numCliente = Integer.parseInt(String.valueOf(tblDatos.getValueAt(tblDatos.getSelectedRow(), 0)));
                 control.deleteMascota(numCliente);
                 this.mostrarMensaje("Eliminado correctamente", "Info", "Borrado de Mascota");
+                this.cargarTabla();
+            }else{
+                this.mostrarMensaje("No seleccionó ninguna mascota", "Error", "Error al eliminar");
             }
-            this.mostrarMensaje("No seleccionó ninguna mascota", "Error", "Error al eliminar");
+            
         }else{
             this.mostrarMensaje("No hay nada para eliminar en la tabla", "Error", "Error al eliminar");
         }
@@ -183,7 +186,7 @@ public class VerDatos extends javax.swing.JFrame {
         if (tipo.equals("Info")) {
             optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
         } else if (tipo.equals("Error")) {
-            optionPane.setMessageType(JOptionPane.ERROR);
+            optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
         }
 
         JDialog dialog = optionPane.createDialog(titulo);
