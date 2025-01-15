@@ -1,6 +1,9 @@
 package com.mycompany.peluqueriacanina.igu;
 
+import javax.swing.table.DefaultTableModel;
+
 public class VerDatos extends javax.swing.JFrame {
+
     public VerDatos() {
         initComponents();
     }
@@ -13,20 +16,25 @@ public class VerDatos extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblDatos = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel1.setText("Visualización de Datos");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -37,7 +45,7 @@ public class VerDatos extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblDatos);
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel2.setText("Datos de mascota:");
@@ -139,6 +147,10 @@ public class VerDatos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        this.cargarTabla();
+    }//GEN-LAST:event_formWindowOpened
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -180,6 +192,19 @@ public class VerDatos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblDatos;
     // End of variables declaration//GEN-END:variables
+
+    private void cargarTabla() {
+        DefaultTableModel tabla = new DefaultTableModel() {
+            // Filas y columnas no sean editables
+            public boolean isCellEditable(int row, int colum){
+                return false;
+            }
+        };
+        
+        String titulos[] = {"Num", "Nombre", "Color", "Raza", "Alerfico", "At. Esp.", "Dueño", "Celular"};
+        
+        tabla.setColumnIdentifiers(titulos);
+    }
 }
