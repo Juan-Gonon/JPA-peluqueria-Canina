@@ -1,10 +1,16 @@
 package com.mycompany.peluqueriacanina.igu;
 
+import com.mycompany.peluqueriacanina.logica.Controladora;
+import com.mycompany.peluqueriacanina.logica.Mascota;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 public class VerDatos extends javax.swing.JFrame {
 
+    Controladora control;
+
     public VerDatos() {
+        control = new Controladora();
         initComponents();
     }
 
@@ -198,13 +204,22 @@ public class VerDatos extends javax.swing.JFrame {
     private void cargarTabla() {
         DefaultTableModel tabla = new DefaultTableModel() {
             // Filas y columnas no sean editables
-            public boolean isCellEditable(int row, int colum){
+            public boolean isCellEditable(int row, int colum) {
                 return false;
             }
         };
-        
+
         String titulos[] = {"Num", "Nombre", "Color", "Raza", "Alerfico", "At. Esp.", "Dueño", "Celular"};
-        
+
         tabla.setColumnIdentifiers(titulos);
+
+        List<Mascota> listaMascotas = control.traerMascotas();
+
+        if (listaMascotas != null) {
+            for (Mascota mascota : listaMascotas) {
+                Object[] objeto = {mascota.getNum_cliente(), mascota.getNombre(), mascota.getColor(), mascota.getRaza(), mascota.getAlergico(), mascota.getAtencion_especial(), mascota.getUnDuenio().getNombre(), mascota.getUnDuenio().getCelDuenio()};
+                tabla.addRow(objeto);
+            }
+        }
     }
 }
