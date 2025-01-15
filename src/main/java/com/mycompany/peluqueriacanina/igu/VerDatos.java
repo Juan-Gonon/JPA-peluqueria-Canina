@@ -83,6 +83,11 @@ public class VerDatos extends javax.swing.JFrame {
         );
 
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -171,14 +176,31 @@ public class VerDatos extends javax.swing.JFrame {
                 control.deleteMascota(numCliente);
                 this.mostrarMensaje("Eliminado correctamente", "Info", "Borrado de Mascota");
                 this.cargarTabla();
-            }else{
+            } else {
                 this.mostrarMensaje("No seleccionó ninguna mascota", "Error", "Error al eliminar");
             }
-            
-        }else{
+
+        } else {
             this.mostrarMensaje("No hay nada para eliminar en la tabla", "Error", "Error al eliminar");
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        if (tblDatos.getRowCount() > 0) {
+            if (tblDatos.getSelectedRow() != -1) {
+                int numCliente = Integer.parseInt(String.valueOf(tblDatos.getValueAt(tblDatos.getSelectedRow(), 0)));
+                
+                ModificarDatos pantallModif = new ModificarDatos(numCliente);
+                pantallModif.setVisible(true);
+                pantallModif.setLocationRelativeTo(null);
+            } else {
+                this.mostrarMensaje("No seleccionó ninguna mascota", "Error", "Error al eliminar");
+            }
+
+        } else {
+            this.mostrarMensaje("No hay nada para eliminar en la tabla", "Error", "Error al eliminar");
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
 
     public void mostrarMensaje(String mensaje, String tipo, String titulo) {
         JOptionPane optionPane = new JOptionPane(mensaje);
