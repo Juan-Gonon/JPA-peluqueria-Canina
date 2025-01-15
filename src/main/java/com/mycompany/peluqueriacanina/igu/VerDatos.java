@@ -7,7 +7,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class VerDatos extends javax.swing.JFrame {
 
-    Controladora control;
+    Controladora control = null;
 
     public VerDatos() {
         control = new Controladora();
@@ -202,8 +202,9 @@ public class VerDatos extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void cargarTabla() {
-        DefaultTableModel tabla = new DefaultTableModel() {
+        DefaultTableModel modelTable = new DefaultTableModel() {
             // Filas y columnas no sean editables
+            @Override
             public boolean isCellEditable(int row, int colum) {
                 return false;
             }
@@ -211,15 +212,17 @@ public class VerDatos extends javax.swing.JFrame {
 
         String titulos[] = {"Num", "Nombre", "Color", "Raza", "Alerfico", "At. Esp.", "Dueño", "Celular"};
 
-        tabla.setColumnIdentifiers(titulos);
+        modelTable.setColumnIdentifiers(titulos);
 
         List<Mascota> listaMascotas = control.traerMascotas();
 
         if (listaMascotas != null) {
             for (Mascota mascota : listaMascotas) {
                 Object[] objeto = {mascota.getNum_cliente(), mascota.getNombre(), mascota.getColor(), mascota.getRaza(), mascota.getAlergico(), mascota.getAtencion_especial(), mascota.getUnDuenio().getNombre(), mascota.getUnDuenio().getCelDuenio()};
-                tabla.addRow(objeto);
+                modelTable.addRow(objeto);
             }
         }
+        
+        tblDatos.setModel(modelTable);
     }
 }
