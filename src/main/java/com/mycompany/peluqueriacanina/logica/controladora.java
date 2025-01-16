@@ -36,4 +36,8 @@ public class Controladora {
         this.controlPersis.deleteMascota(numCliente);
     }
 
+    public Mascota getMascota(int numCliente) {
+        return controlPersis.getMascota(numCliente);
+    }
+
 }

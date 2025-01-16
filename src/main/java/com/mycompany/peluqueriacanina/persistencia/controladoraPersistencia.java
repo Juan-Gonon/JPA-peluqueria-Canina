@@ -29,4 +29,8 @@ public class controladoraPersistencia {
         }
     }
 
+    public Mascota getMascota(int numCliente) {
+        return mascotaJpa.findMascota(numCliente);
+    }
+
 }

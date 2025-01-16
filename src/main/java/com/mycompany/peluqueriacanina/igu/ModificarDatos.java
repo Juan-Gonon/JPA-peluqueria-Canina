@@ -6,6 +6,7 @@ import com.mycompany.peluqueriacanina.ENUMs.DuenioEnum;
 import com.mycompany.peluqueriacanina.ENUMs.MascotaEM;
 import com.mycompany.peluqueriacanina.GenericDto.ResultDto;
 import com.mycompany.peluqueriacanina.logica.Controladora;
+import com.mycompany.peluqueriacanina.logica.Mascota;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JDialog;
@@ -20,6 +21,7 @@ public class ModificarDatos extends javax.swing.JFrame {
         this.control = new Controladora();
         this.numCliente = numCliente;
         initComponents();
+        cargarDatos(numCliente);
     }
 
     @SuppressWarnings("unchecked")
@@ -363,4 +365,31 @@ public class ModificarDatos extends javax.swing.JFrame {
     private javax.swing.JTextField lblRaza;
     private javax.swing.JTextArea txaObservacione;
     // End of variables declaration//GEN-END:variables
+
+    private void cargarDatos(int numCliente) {
+        Mascota mascota = control.getMascota(numCliente);
+
+        lblNombre.setText(mascota.getNombre());
+        lblRaza.setText(mascota.getRaza());
+        lblColor.setText(mascota.getColor());
+        txaObservacione.setText(mascota.getObservaciones());
+        lblDuenio.setText(mascota.getUnDuenio().getNombre());
+        lblCelDuenio.setText(mascota.getUnDuenio().getCelDuenio());
+
+        if (mascota.getAlergico().equals("Si")) {
+            cbxAlergico.setSelectedIndex(1);
+        } else {
+            if (mascota.getAlergico().equals("No")) {
+                cbxAlergico.setSelectedIndex(2);
+            }
+        }
+
+        if (mascota.getAtencion_especial().equals("Si")) {
+            cbxAlergico.setSelectedIndex(1);
+        } else {
+            if (mascota.getAtencion_especial().equals("No")) {
+                cbxAlergico.setSelectedIndex(2);
+            }
+        }
+    }
 }
