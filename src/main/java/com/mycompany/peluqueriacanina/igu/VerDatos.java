@@ -189,10 +189,11 @@ public class VerDatos extends javax.swing.JFrame {
         if (tblDatos.getRowCount() > 0) {
             if (tblDatos.getSelectedRow() != -1) {
                 int numCliente = Integer.parseInt(String.valueOf(tblDatos.getValueAt(tblDatos.getSelectedRow(), 0)));
-                
+
                 ModificarDatos pantallModif = new ModificarDatos(numCliente);
                 pantallModif.setVisible(true);
                 pantallModif.setLocationRelativeTo(null);
+                this.dispose();
             } else {
                 this.mostrarMensaje("No seleccionó ninguna mascota", "Error", "Error al eliminar");
             }

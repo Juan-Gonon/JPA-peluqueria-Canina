@@ -23,7 +23,7 @@ public class Controladora {
         mascota.setAtencion_especial(mascotaDto.getAtenEsp());
         mascota.setObservaciones(mascotaDto.getObservaciones());
         mascota.setUnDuenio(duenio);
-        
+
         this.controlPersis.guardar(duenio, mascota);
 
     }
@@ -38,6 +38,38 @@ public class Controladora {
 
     public Mascota getMascota(int numCliente) {
         return controlPersis.getMascota(numCliente);
+    }
+
+    public void update(Mascota mascota, MascotaDto mascotaDto, DuenioDto duenioDto) {
+        //Duenio duenio = new Duenio();
+        // Mascota masco = new Mascota();
+        //duenio.setNombre(duenioDto.getNomDuenio());
+        //duenio.setCelDuenio(duenioDto.getCelDuenio());
+
+        mascota.setNombre(mascotaDto.getNomMascota());
+        mascota.setRaza(mascotaDto.getRaza());
+        mascota.setColor(mascotaDto.getColor());
+        mascota.setAlergico(mascotaDto.getAlergico());
+        mascota.setAtencion_especial(mascotaDto.getAtenEsp());
+        mascota.setObservaciones(mascotaDto.getObservaciones());
+        //mascota.setUnDuenio(duenio);
+
+        this.controlPersis.updateMascota(mascota);
+        
+        Duenio duenio = this.getDuenio(mascota.getUnDuenio().getId_duenio());
+        
+        duenio.setCelDuenio(duenioDto.getCelDuenio());
+        duenio.setNombre(duenioDto.getNomDuenio());
+        
+        this.updateDuenio(duenio);
+    }
+
+    private Duenio getDuenio(int id_duenio) {
+        return controlPersis.getDuenio(id_duenio);
+    }
+
+    private void updateDuenio(Duenio duenio) {
+        this.controlPersis.updateDuenio(duenio);
     }
 
 }

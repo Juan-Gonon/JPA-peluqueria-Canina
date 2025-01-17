@@ -16,6 +16,7 @@ public class ModificarDatos extends javax.swing.JFrame {
 
     Controladora control = null;
     int numCliente;
+    private Mascota mascota;
 
     public ModificarDatos(int numCliente) {
         this.control = new Controladora();
@@ -292,7 +293,7 @@ public class ModificarDatos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnGuardarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarCambiosActionPerformed
-        /*
+
         String alergico = (String) cbxAlergico.getSelectedItem();
         String atenEsp = (String) cbxAtencion.getSelectedItem();
 
@@ -312,30 +313,39 @@ public class ModificarDatos extends javax.swing.JFrame {
         ResultDto<DuenioDto> resultDto = DuenioDto.createDuenioDto(paramsDuenio);
         ResultDto<MascotaDto> resultMascotaDto = MascotaDto.createMascotaDto(paramsMascota);
 
-        if (resultDto.getError() != null) this.showErrorPane(resultDto.getError());
-        if (resultMascotaDto.getError() != null) this.showErrorPane(resultMascotaDto.getError());
-        
+        if (resultDto.getError() != null) {
+            this.mostrarMensaje(resultDto.getError(), "Error", "Error Edición");
+        }
+        if (resultMascotaDto.getError() != null) {
+            this.mostrarMensaje(resultMascotaDto.getError(), "Error", "Error Edición");
+        }
 
         DuenioDto duenioDto = resultDto.getValor();
         MascotaDto mascotaDto = resultMascotaDto.getValor();
+        
+        control.update(mascota, mascotaDto, duenioDto);
 
-        control.guardar(mascotaDto, duenioDto);
-        JOptionPane optionPane = new JOptionPane("Se guardó correctamente");
-        optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
-        JDialog dialog = optionPane.createDialog("Guardado Exitoso");
-        dialog.setAlwaysOnTop(true);
-        dialog.setVisible(true);
-         */
+        this.mostrarMensaje("Edicion realizada correctamente", "Info", "Edición correcta");
+
+        VerDatos pantalla = new VerDatos();
+        pantalla.setVisible(true);
+        pantalla.setLocationRelativeTo(null);
+        this.dispose();
 
     }//GEN-LAST:event_btnGuardarCambiosActionPerformed
 
-    private void showErrorPane(String message) {
-        JOptionPane optionPane = new JOptionPane(message);
-        optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
-        JDialog dialog = optionPane.createDialog("Error");
+    public void mostrarMensaje(String mensaje, String tipo, String titulo) {
+        JOptionPane optionPane = new JOptionPane(mensaje);
+
+        if (tipo.equals("Info")) {
+            optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        } else if (tipo.equals("Error")) {
+            optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+        }
+
+        JDialog dialog = optionPane.createDialog(titulo);
         dialog.setAlwaysOnTop(true);
         dialog.setVisible(true);
-        return;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -367,7 +377,7 @@ public class ModificarDatos extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void cargarDatos(int numCliente) {
-        Mascota mascota = control.getMascota(numCliente);
+        mascota = control.getMascota(numCliente);
 
         lblNombre.setText(mascota.getNombre());
         lblRaza.setText(mascota.getRaza());
